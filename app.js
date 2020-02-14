@@ -15,6 +15,7 @@ function read() {
     });
 }
 
+
 function copy() {
     fs.copyFile('incomming_mail.txt', 'mail_storage.txt', (err) => {
         if (err) {
@@ -35,6 +36,9 @@ http.createServer(function(request, response) {
     if (request.url != '/favicon.ico') {
         var date = new Date();
 
+        //here data or mail from forms on your website are printed to the xxx file.
+        //Data from your website should be written instead of 'Merhaba'
+
         fs.appendFile('incomming_mail.txt', '---------------------------------------------\n ' + date + '\n Merhaba \n', function(err) {
             if (err) {
                 throw err;
@@ -46,7 +50,7 @@ http.createServer(function(request, response) {
 
 }).listen(8080);
 
-
+//form data and mails are sent to you every day at 13:00.
 cron.schedule('00 13 * * *', () => {
 
     if (fs.existsSync('./incomming_mail.txt')) {
